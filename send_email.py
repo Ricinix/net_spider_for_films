@@ -1,5 +1,6 @@
-import pandas as pd
+import os
 import smtplib
+import pandas as pd
 import login_message
 
 from email.mime.text import MIMEText
@@ -14,7 +15,7 @@ receiver = login_message.RECEIVER
 
 def build_text():
     text = "Hello！今天电影天堂又有新的电影资源了。\n"
-    films = pd.read_csv('.\\data\\films.csv')
+    films = pd.read_csv(os.path.join('.', 'data', 'films.csv'))
     for i in range(films.shape[0]):
         url = "详情地址：%s" % films.iloc[i][0]
         name = '电影名：%s' % films.iloc[i][1]

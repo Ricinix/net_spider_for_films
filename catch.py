@@ -1,14 +1,21 @@
-import requests
+import os
 import re
+import requests
 import pandas as pd
 
 
 original_url = 'https://www.dytt8.net/'
 
 
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+    + 'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
+}
+
+
 def main():
     is_same = False
-    r = requests.get(url = original_url)
+    r = requests.get(url = original_url, headers=headers)
     coding_style = re.search('(?<=charset=).*?(?=")', r.text).group()
     r.encoding = coding_style
 
@@ -22,7 +29,7 @@ def main():
         # films_pd['url'] = data.group(1)
         # films_pd['name'] = data.group(2)
         url_list.append(original_url + data.group('url'))
-        name_list.append(data.group('name'))
+        name_list.append(re.sub('/', ' ', data.group('name')))
 
     films_pd = pd.DataFrame()
     films_pd['url'] = url_list
@@ -30,7 +37,7 @@ def main():
     print(films_pd)
 
     try:
-        films_old = pd.read_csv('.\\data\\films.csv')
+        films_old = pd.read_csv(os.path.join('.', 'data', 'films.csv'))
     except FileNotFoundError:
         print("第一次抓取")
         is_same = True
@@ -39,7 +46,7 @@ def main():
         print("已是最新")
         return True
     else:
-        films_pd.to_csv('.\\data\\films.csv', index=False)
+        films_pd.to_csv(os.path.join('.', 'data', 'films.csv'), index=False)
         return False
 
 
