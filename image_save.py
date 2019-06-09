@@ -10,13 +10,22 @@ headers = {
 }
 
 
-def main():
+def main(left=0):
     films_pd = pd.read_csv(os.path.join('.', 'data', 'films.csv'))
-    for m in range(films_pd.shape[0]):
+    path = os.path.join('.', 'images')
+    if not os.path.exists(path):
+        os.mkdir(path)
+    for m in range(left, films_pd.shape[0]):
         print("正在下载第%d个图片" % m)
-        r = requests.get(url=films_pd['image_url'][m], headers=headers)
+        try:
+            r = requests.get(url=films_pd['image_url'][m], headers=headers)
+        except Exception:
+            return films_pd.shape[0] - m
+        # r = requests.get(url=films_pd['image_url'][m], headers=headers)
         with open(os.path.join('.', 'images', '%s.jpg' % films_pd['name'][m]), 'wb') as f:
             f.write(r.content)
+
+    return 0
 
 
 if __name__ == '__main__':

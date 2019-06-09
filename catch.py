@@ -14,7 +14,10 @@ headers = {
 
 
 def main():
-    is_same = False
+    path = os.path.join('.', 'data')
+    if not os.path.exists(path):
+        os.mkdir(path)
+
     r = requests.get(url = original_url, headers=headers)
     coding_style = re.search('(?<=charset=).*?(?=")', r.text).group()
     r.encoding = coding_style
@@ -40,9 +43,9 @@ def main():
         films_old = pd.read_csv(os.path.join('.', 'data', 'films.csv'))
     except FileNotFoundError:
         print("第一次抓取")
-        is_same = True
+        return False
 
-    if not is_same and films_pd['url'].to_list() == films_old['url'].to_list():
+    if films_pd['url'].to_list() == films_old['url'].to_list():
         print("已是最新")
         return True
     else:
