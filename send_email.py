@@ -1,14 +1,15 @@
 import pandas as pd
 import smtplib
+import login_message
 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.utils import formataddr
 
 
-username = 'xxxxxx@163.com'
-password = 'xxxxxx'
-receiver = 'xxxxxx@qq.com'
+username = login_message.USERNAME
+password = login_message.PASSWORD
+receiver = login_message.RECEIVER
 
 
 def build_text():
@@ -34,6 +35,9 @@ def build_msg():
 
 
 def main():
+    # smtp = smtplib.SMTP('smtp.gmail.com', 587)
+    # smtp.ehlo()
+    # smtp.starttls()
     smtp = smtplib.SMTP()
     smtp.connect('smtp.163.com', 25)
     smtp.login(username, password)
