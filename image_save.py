@@ -13,9 +13,14 @@ headers = {
 def main(left=0):
     films_pd = pd.read_csv(os.path.join('.', 'data', 'films.csv'))
     path = os.path.join('.', 'images')
+
     if not os.path.exists(path):
         os.mkdir(path)
-    for m in range(left, films_pd.shape[0]):
+
+    if left == 0:
+        left = films_pd.shape[0]
+
+    for m in range(films_pd.shape[0] - left, films_pd.shape[0]):
         print("正在下载第%d个图片" % m)
         try:
             r = requests.get(url=films_pd['image_url'][m], headers=headers)
