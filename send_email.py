@@ -58,11 +58,12 @@ def delete_images(path):
 
 
 def main():
-    smtp = smtplib.SMTP()
-    smtp.connect('smtp.163.com', 25)
-    # smtp = smtplib.SMTP('smtp.gmail.com', 587)
-    # smtp.ehlo()
-    # smtp.starttls()
+    # smtp = smtplib.SMTP()
+    # smtp.connect('smtp.163.com', 25)
+    smtp = smtplib.SMTP('smtp.gmail.com', 587)
+    smtp.ehlo()
+    smtp.starttls()
+
     smtp.login(username, password)
     msg = build_msg()
     smtp.sendmail(username, receiver, msg.as_string())
