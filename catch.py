@@ -40,7 +40,7 @@ def main():
     print(films_pd)
 
     try:
-        films_old = pd.read_csv(os.path.join('.', 'data', 'films.csv'))
+        films_old = pd.read_csv(os.path.join('data', 'films.csv'))
     except FileNotFoundError:
         print("第一次抓取")
         return False
@@ -49,7 +49,7 @@ def main():
         print("已是最新")
         return True
     else:
-        films_pd.to_csv(os.path.join('.', 'data', 'films.csv'), index=False)
+        films_pd.to_csv(os.path.join('data', 'films.csv'), index=False)
         return False
 
 

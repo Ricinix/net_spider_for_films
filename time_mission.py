@@ -14,7 +14,8 @@ if __name__ == '__main__':
                 left = image_save.main()
                 # while left != 0:
                 #     left = image_save.main(left)
-                send_email.main()
+                time.sleep(3)
+                send_email.main("gmail")
             flag = False
         elif time.localtime().tm_hour == 16 and not flag:
             print("发送任务重置")
