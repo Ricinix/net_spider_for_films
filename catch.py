@@ -42,6 +42,7 @@ def main():
     try:
         films_old = pd.read_csv(os.path.join('data', 'films.csv'))
     except FileNotFoundError:
+        films_pd.to_csv(os.path.join('data', 'films.csv'), index=False)
         print("第一次抓取")
         return False
 
