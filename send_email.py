@@ -95,4 +95,4 @@ def main(email_kind, read_picture=False):
 
 
 if __name__ == '__main__':
-    main("163")
+    main("gmail")
