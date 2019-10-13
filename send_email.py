@@ -69,6 +69,8 @@ def delete_images(path):
 
 
 def main(email_kind, read_picture=False):
+    global films
+    films = pd.read_csv(os.path.join('data', 'films.csv'))
     smtp, username, password = None, 0, 0
     if email_kind == "gmail":
         smtp = smtplib.SMTP('smtp.gmail.com', 587)
